@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup>
+		<Filter Include="源文件\Drivers">
+			<UniqueIdentifier>{22775322-49d7-490b-6767-4e54c544452e}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="源文件\Drivers\STM32F7xx_HAL_Driver">
+			<UniqueIdentifier>{a6965a46-efa3-45fb-451d-294abdff24d1}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="源文件\Drivers\CMSIS">
+			<UniqueIdentifier>{c3616e73-b10d-4958-7498-937b7572ae0c}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="源文件\Application">
+			<UniqueIdentifier>{845ae3c4-40a0-4a18-523e-1419591770ac}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="源文件\Application\EWARM">
+			<UniqueIdentifier>{19f9a15d-8dbf-45c6-6138-926e83c07561}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="源文件\Application\User">
+			<UniqueIdentifier>{90363b68-c3fd-4598-5a0d-33a784f24a50}</UniqueIdentifier>
+		</Filter>
+		<Filter Include="源文件">
+			<UniqueIdentifier>{ccc72e38-61b2-485f-5f87-7f1fcb461211}</UniqueIdentifier>
+		</Filter>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_tim.c">
+			<Filter>源文件\Drivers\STM32F7xx_HAL_Driver</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_rcc_ex.c">
+			<Filter>源文件\Drivers\STM32F7xx_HAL_Driver</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_cortex.c">
+			<Filter>源文件\Drivers\STM32F7xx_HAL_Driver</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_dma.c">
+			<Filter>源文件\Drivers\STM32F7xx_HAL_Driver</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_tim_ex.c">
+			<Filter>源文件\Drivers\STM32F7xx_HAL_Driver</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_adc.c">
+			<Filter>源文件\Drivers\STM32F7xx_HAL_Driver</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_adc_ex.c">
+			<Filter>源文件\Drivers\STM32F7xx_HAL_Driver</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_flash.c">
+			<Filter>源文件\Drivers\STM32F7xx_HAL_Driver</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_pwr_ex.c">
+			<Filter>源文件\Drivers\STM32F7xx_HAL_Driver</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2c.c">
+			<Filter>源文件\Drivers\STM32F7xx_HAL_Driver</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_gpio.c">
+			<Filter>源文件\Drivers\STM32F7xx_HAL_Driver</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal.c">
+			<Filter>源文件\Drivers\STM32F7xx_HAL_Driver</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2c_ex.c">
+			<Filter>源文件\Drivers\STM32F7xx_HAL_Driver</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_uart.c">
+			<Filter>源文件\Drivers\STM32F7xx_HAL_Driver</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_rcc.c">
+			<Filter>源文件\Drivers\STM32F7xx_HAL_Driver</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_dma_ex.c">
+			<Filter>源文件\Drivers\STM32F7xx_HAL_Driver</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_usart.c">
+			<Filter>源文件\Drivers\STM32F7xx_HAL_Driver</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_flash_ex.c">
+			<Filter>源文件\Drivers\STM32F7xx_HAL_Driver</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_pwr.c">
+			<Filter>源文件\Drivers\STM32F7xx_HAL_Driver</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\Src\system_stm32f7xx.c">
+			<Filter>源文件\Drivers\CMSIS</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\Src\stm32f7xx_hal_msp.c">
+			<Filter>源文件\Application\User</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\Src\main.c">
+			<Filter>源文件\Application\User</Filter>
+		</ClCompile>
+		<ClCompile Include="..\..\Src\stm32f7xx_it.c">
+			<Filter>源文件\Application\User</Filter>
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup></ItemGroup>
+	<ItemGroup>
+		<None Include="..\startup_stm32f767xx.s">
+			<Filter>源文件\Application\EWARM</Filter>
+		</None>
+	</ItemGroup>
+</Project>

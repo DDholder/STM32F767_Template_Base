@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="STM32F767_Template|Win32">
+      <Configuration>STM32F767_Template</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_tim.c">
+    </ClCompile>
+    <ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_rcc_ex.c">
+    </ClCompile>
+    <ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_cortex.c">
+    </ClCompile>
+    <ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_dma.c">
+    </ClCompile>
+    <ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_tim_ex.c">
+    </ClCompile>
+    <ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_adc.c">
+    </ClCompile>
+    <ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_adc_ex.c">
+    </ClCompile>
+    <ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_flash.c">
+    </ClCompile>
+    <ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_pwr_ex.c">
+    </ClCompile>
+    <ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2c.c">
+    </ClCompile>
+    <ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_gpio.c">
+    </ClCompile>
+    <ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal.c">
+    </ClCompile>
+    <ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_i2c_ex.c">
+    </ClCompile>
+    <ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_uart.c">
+    </ClCompile>
+    <ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_rcc.c">
+    </ClCompile>
+    <ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_dma_ex.c">
+    </ClCompile>
+    <ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_usart.c">
+    </ClCompile>
+    <ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_flash_ex.c">
+    </ClCompile>
+    <ClCompile Include="..\..\Drivers\STM32F7xx_HAL_Driver\Src\stm32f7xx_hal_pwr.c">
+    </ClCompile>
+    <ClCompile Include="..\..\Src\system_stm32f7xx.c">
+    </ClCompile>
+    <ClCompile Include="..\..\Src\stm32f7xx_hal_msp.c">
+    </ClCompile>
+    <ClCompile Include="..\..\Src\main.c">
+    </ClCompile>
+    <ClCompile Include="..\..\Src\stm32f7xx_it.c">
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\startup_stm32f767xx.s">
+    </None>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{04621555-676D-4E4A-6BDC-F8669CA41B0A}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>STM32F767_Template</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='STM32F767_Template|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>..\..\Inc;..\..\Drivers\STM32F7xx_HAL_Driver\Inc;..\..\Drivers\STM32F7xx_HAL_Driver\Inc\Legacy;..\..\Drivers\CMSIS\Device\ST\STM32F7xx\Include;..\..\Drivers\CMSIS\Include;</IncludePath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='STM32F767_Template|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>USE_HAL_DRIVER;STM32F767xx;</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>
+      </SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props">
+  </Import>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='STM32F767_Template|Win32'">
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props">
+  </Import>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets">
+  </Import>
+</Project>

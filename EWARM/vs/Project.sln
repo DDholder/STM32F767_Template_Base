@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "STM32F767_Template", "STM32F767_Template.vcxproj", "{04621555-676D-4E4A-6BDC-F8669CA41B0A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{04621555-676D-4E4A-6BDC-F8669CA41B0A}.Debug|Win32.ActiveCfg = STM32F767_Template|Win32
+		{04621555-676D-4E4A-6BDC-F8669CA41B0A}.Debug|Win32.Build.0 = STM32F767_Template|Win32
+		{04621555-676D-4E4A-6BDC-F8669CA41B0A}.Release|Win32.ActiveCfg = STM32F767_Template|Win32
+		{04621555-676D-4E4A-6BDC-F8669CA41B0A}.Release|Win32.Build.0 = STM32F767_Template|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
