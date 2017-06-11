@@ -35,7 +35,8 @@
 #include "stm32f7xx_hal.h"
 
 /* USER CODE BEGIN Includes */
-
+ 
+#define Buffersize 50
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -64,10 +65,17 @@ int fgetc(FILE * f)
  HAL_UART_Receive(&huart3,&ch, 1, 0xffff);
  return ch;
  }
+
+uint8_t Uart1_RxBuffer[Buffersize];
+uint8_t Uart3_RxBuffer[Buffersize];  //串口接收缓存
 uint8_t rec_buff[] = "hello world!\r\n";
 uint32_t pwm_t = 500;
 uint16_t adc_value1 = 0;
 uint16_t encoder_cnt = 0;
+float angle = 0;
+float angle_site = 0
+char  angel_control_flag = 0;
+uint32_t TIME=0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -270,7 +278,7 @@ static void MX_TIM2_Init(void)
   htim2.Instance = TIM2;
   htim2.Init.Prescaler = 216;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 100;
+  htim2.Init.Period = 5;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
@@ -546,6 +554,11 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+/*
+获取ADC1  
+参数 通道
+*/
 uint16_t Get_adc(uint32_t ch)
 {
 	ADC_ChannelConfTypeDef ADC1_ChanConf;
@@ -557,6 +570,57 @@ uint16_t Get_adc(uint32_t ch)
 	HAL_ADC_Start(&hadc1);
 	HAL_ADC_PollForConversion(&hadc1,10);
 	return (uint16_t)HAL_ADC_GetValue(&hadc1);	
+}
+/*
+串口回调函数  可以被重定义  不可以被更改！ 
+用户重定义串口回调函数  
+*/
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+	if(huart == &huart1)
+	{
+		HAL_UART_Transmit(&huart1,Uart1_RxBuffer,strlen((char *)Uart1_RxBuffer),1000);
+		HAL_UART_Receive_IT(&huart1,Uart1_RxBuffer,1);
+	}
+		if(huart == &huart3)
+	{
+		HAL_UART_Transmit(&huart3,Uart3_RxBuffer,strlen((char *)Uart3_RxBuffer),1000);
+		HAL_UART_Receive_IT(&huart3,Uart3_RxBuffer,1);
+	}
+}
+/*
+重定义定时器回调函数 
+*/
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  if(htim == &htim2)
+	{
+				{TIME++; if(TIME>=32000) TIME=0;}			//时间信息
+				
+				//获取电机位置
+					  
+				//获取摆位置
+				
+				if(angel_control_flag==1)
+				{
+					if(angle>800&&angle<1300)
+					{
+						
+							InvertCotrol(angle);
+							MotorControl(angle_site);
+							SetPWM();
+							
+					}
+				}
+				else 
+					{						
+								SetPWM(0);
+						
+					}
+				
+    
+	//	printf("hello\n");
+	}
 }
 /* USER CODE END 4 */
 

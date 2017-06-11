@@ -36,6 +36,8 @@
   /* Includes ------------------------------------------------------------------*/
 
 /* USER CODE BEGIN Includes */
+#include "pid.h"
+#include "motor_control.h"
 
 /* USER CODE END Includes */
 

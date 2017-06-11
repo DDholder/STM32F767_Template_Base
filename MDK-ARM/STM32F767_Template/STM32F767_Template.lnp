@@ -22,6 +22,8 @@
 "stm32f767_template\stm32f7xx_hal_msp.o"
 "stm32f767_template\main.o"
 "stm32f767_template\stm32f7xx_it.o"
+"stm32f767_template\motor_control.o"
+"stm32f767_template\pid.o"
 "stm32f767_template\startup_stm32f767xx.o"
 --library_type=microlib --strict --scatter "STM32F767_Template\STM32F767_Template.sct"
 --diag_suppress=L6329 --summary_stderr --info summarysizes --map --xref --callgraph --symbols
