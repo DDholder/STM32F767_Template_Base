@@ -35,7 +35,7 @@
 #include "stm32f7xx_hal.h"
 
 /* USER CODE BEGIN Includes */
- 
+#include "motor_control.h"
 #define Buffersize 50
 /* USER CODE END Includes */
 
@@ -73,7 +73,9 @@ uint32_t pwm_t = 500;
 uint16_t adc_value1 = 0;
 uint16_t encoder_cnt = 0;
 float angle = 0;
-float angle_site = 0
+float angle_site = 0;
+float angle_pwmout = 0;
+float angle_site_pwmout = 0;
 char  angel_control_flag = 0;
 uint32_t TIME=0;
 /* USER CODE END PV */
@@ -131,6 +133,10 @@ int main(void)
   HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_4);
   HAL_TIM_PWM_Start(&htim8,TIM_CHANNEL_1);
   HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL);
+  PID_angle.Proportion = 0;
+  PID_angle.Integral = 0;
+  PID_angle.Derivative = 0;
+  PID_angle.SetPoint = 0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -330,6 +336,21 @@ static void MX_TIM3_Init(void)
   sConfigOC.Pulse = 500;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
   if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_4) != HAL_OK)
   {
     Error_Handler();
@@ -606,15 +627,17 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 					if(angle>800&&angle<1300)
 					{
 						
-							InvertCotrol(angle);
-							MotorControl(angle_site);
-							SetPWM();
+							angle_pwmout = InvertCotrol(&PID_angle,angle);
+							angle_site_pwmout = MotorControl(&PID_angle_site,angle_site);
+							SetPWM((int32_t)(angle_pwmout+angle_site_pwmout));
 							
 					}
 				}
 				else 
 					{						
-								SetPWM(0);
+							SetPWM(0);
+							angle_pwmout = 0;
+							angle_site_pwmout = 0;
 						
 					}
 				

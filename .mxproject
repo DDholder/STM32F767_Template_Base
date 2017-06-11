@@ -1,7 +1,7 @@
 [PreviousGenFiles]
-HeaderPath=D:/文档/GitHub/STM32F767_Template/Inc
+HeaderPath=D:/____2017电赛/STM32F767_Template_Base/Inc
 HeaderFiles=stm32f7xx_it.h;stm32f7xx_hal_conf.h;main.h;
-SourcePath=D:/文档/GitHub/STM32F767_Template/Src
+SourcePath=D:/____2017电赛/STM32F767_Template_Base/Src
 SourceFiles=stm32f7xx_it.h;stm32f7xx_hal_conf.h;main.h;stm32f7xx_it.c;stm32f7xx_hal_msp.c;main.c;
 
 [PreviousLibFiles]
