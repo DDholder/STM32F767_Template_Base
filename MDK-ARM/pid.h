@@ -16,9 +16,8 @@ typedef struct PIDTypeDef
     float LastError;               //Error[-1]
     float PrevError;               //Error[-2]
 } PIDTypeDef;
-
-PIDTypeDef PID_angle;
-PIDTypeDef PID_angle_site;
+extern PIDTypeDef PID_angle;
+extern PIDTypeDef PID_angle_site;
 extern float IncPIDCalc(PIDTypeDef* pidstr, float CurValue);
 extern float LocPIDCalc(PIDTypeDef* pidstr, float CurValue);
 #endif

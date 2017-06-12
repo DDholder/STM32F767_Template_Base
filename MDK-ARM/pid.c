@@ -2,6 +2,8 @@
 #include "stm32f7xx_hal.h"
 #include "pid.h"
 
+PIDTypeDef PID_angle;
+PIDTypeDef PID_angle_site;
 /*******************************************************************************
 * 函数名称 : IncPIDCalc
 * 函数描述 : 增量式 PID 控制计算

@@ -35,8 +35,9 @@
 #include "stm32f7xx_hal.h"
 
 /* USER CODE BEGIN Includes */
+#include "stm32f7xx_hal_def.h"
 #include "motor_control.h"
-#define Buffersize 50
+#define Buffersize 1
 /* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
@@ -68,10 +69,14 @@ int fgetc(FILE * f)
 
 uint8_t Uart1_RxBuffer[Buffersize];
 uint8_t Uart3_RxBuffer[Buffersize];  //串口接收缓存
+uint8_t rec_flag1 = 0;
+uint8_t rec_flag2 = 0;
+uint8_t rec_flag3 = 0;
 uint8_t rec_buff[] = "hello world!\r\n";
 uint32_t pwm_t = 500;
 uint16_t adc_value1 = 0;
 uint16_t encoder_cnt = 0;
+uint32_t angle_uart = 0 ;
 float angle = 0;
 float angle_site = 0;
 float angle_pwmout = 0;
@@ -130,9 +135,14 @@ int main(void)
   MX_TIM8_Init();
 
   /* USER CODE BEGIN 2 */
+  HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_2);
+  HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_3);
   HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_4);
   HAL_TIM_PWM_Start(&htim8,TIM_CHANNEL_1);
   HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL);
+  HAL_UART_Receive_IT(&huart1,Uart1_RxBuffer,1);
+  HAL_UART_Receive_IT(&huart3,Uart3_RxBuffer,1);
   PID_angle.Proportion = 0;
   PID_angle.Integral = 0;
   PID_angle.Derivative = 0;
@@ -150,14 +160,11 @@ int main(void)
 	  
 	  HAL_Delay(10);
 	  HAL_GPIO_TogglePin(GPIOB, LD3_Pin|LD2_Pin);
-	  pwm_t+= 50;
-	  htim3.Instance->CCR4 =pwm_t ; 
-	  if(pwm_t>=900)
-	  {pwm_t = 100;}
-	  adc_value1 = Get_adc(0);
-	  encoder_cnt = (int16_t)(__HAL_TIM_GET_COUNTER(&htim8));
-	  printf("ADC1_0: %d \n\r",adc_value1);
-	  printf("Encoder:%d \n\r",encoder_cnt);
+	  printf(" %d\n",angle_uart);
+	 // adc_value1 = Get_adc(0);
+	  
+	 // printf("ADC1_0: %d \n\r",adc_value1);
+	//  printf("Encoder:%d \n\r",encoder_cnt);
 	  
   }
   /* USER CODE END 3 */
@@ -600,11 +607,36 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
 	if(huart == &huart1)
 	{
-		HAL_UART_Transmit(&huart1,Uart1_RxBuffer,strlen((char *)Uart1_RxBuffer),1000);
+		if(rec_flag2 == 0)
+		{
+				if(rec_flag1 == 0)
+				{
+					if(Uart1_RxBuffer[0]==0x80)
+					{
+						rec_flag1 = 1;
+					}
+				}
+				else if(rec_flag1 == 1)
+					{
+						angle_uart = Uart1_RxBuffer[0]*256;
+						rec_flag2 = 1;
+					
+					}
+		}
+		else
+		{
+			angle_uart += Uart1_RxBuffer[0];
+			
+			rec_flag1 = 0;
+			rec_flag2 = 0;
+		}		
+		
+		//HAL_UART_Transmit(&huart1,Uart1_RxBuffer,strlen((char *)Uart1_RxBuffer),1000);
 		HAL_UART_Receive_IT(&huart1,Uart1_RxBuffer,1);
 	}
 		if(huart == &huart3)
 	{
+		
 		HAL_UART_Transmit(&huart3,Uart3_RxBuffer,strlen((char *)Uart3_RxBuffer),1000);
 		HAL_UART_Receive_IT(&huart3,Uart3_RxBuffer,1);
 	}
@@ -618,9 +650,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	{
 				{TIME++; if(TIME>=32000) TIME=0;}			//时间信息
 				
-				//获取电机位置
-					  
-				//获取摆位置
+				encoder_cnt = (int16_t)(__HAL_TIM_GET_COUNTER(&htim8));//获取电机位置
+				angle_site = (float)encoder_cnt/390.0*360.0;	  
+				angle = (float)angle_uart/1024.0*360.0;//获取摆位置
 				
 				if(angel_control_flag==1)
 				{
