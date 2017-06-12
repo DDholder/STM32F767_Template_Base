@@ -144,10 +144,14 @@ int main(void)
   HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL);
   HAL_UART_Receive_IT(&huart1,Uart1_RxBuffer,1);
   HAL_UART_Receive_IT(&huart3,Uart3_RxBuffer,1);
-  PID_angle.Proportion = 0;
+  PID_angle.Proportion = 3;
   PID_angle.Integral = 0;
   PID_angle.Derivative = 0;
-  PID_angle.SetPoint = 0;
+  PID_angle.SetPoint = 180;
+  PID_angle_site.Proportion = 3;
+  PID_angle_site.Integral = 0;
+  PID_angle_site.Derivative = 0;
+  PID_angle_site.SetPoint = 180;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -661,27 +665,31 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 					angle_site = (float)(encoder_cnt)/390.0*360.0;	  
 					if(rec_flag3 ==1 )
 					{angle = (float)(angle_uart)/690.0*360.0; 
-						printf("%d  %f  %d  %f\n",angle_uart,angle,encoder_cnt,angle_site);
+						
 						rec_flag3 = 0;		}//»ñÈ¡°ÚÎ»ÖÃ
 				
-//				if(angel_control_flag==1)
-//				{
-//					if(angle>800&&angle<1300)
-//					{
-//						
-//							angle_pwmout = InvertCotrol(&PID_angle,angle);
-//							angle_site_pwmout = MotorControl(&PID_angle_site,angle_site);
-//							SetPWM((int32_t)(angle_pwmout+angle_site_pwmout));
-//							
-//					}
-//				}
-//				else 
-//					{						
-//							SetPWM(0);
-//							angle_pwmout = 0;
-//							angle_site_pwmout = 0;
-//						
-//					}
+				//angle = 200;		
+				//angle_site =200;
+						
+				if(1)//(angel_control_flag==1)
+				{
+					if(angle>130&&angle<230)
+					{
+						
+							angle_pwmout = InvertCotrol(&PID_angle,angle);
+							//angle_site_pwmout = MotorControl(&PID_angle_site,angle_site);
+						angle_site_pwmout = 0;
+							SetPWM((int32_t)(angle_pwmout+angle_site_pwmout));
+							printf("%d  %f  %d  %f %f  %f\n",angle_uart,angle,encoder_cnt,angle_site,angle_pwmout,angle_site_pwmout);
+					}
+				}
+				else 
+					{						
+							SetPWM(0);
+							angle_pwmout = 0;
+							angle_site_pwmout = 0;
+						
+					}
 				
     
 	//	printf("hello\n");
