@@ -75,7 +75,7 @@ uint8_t rec_flag3 = 0;
 uint8_t rec_buff[] = "hello world!\r\n";
 uint32_t pwm_t = 500;
 uint16_t adc_value1 = 0;
-uint16_t encoder_cnt = 0;
+int32_t encoder_cnt = 0;
 uint32_t angle_uart = 0 ;
 float angle = 0;
 float angle_site = 0;
@@ -140,6 +140,7 @@ int main(void)
   HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_3);
   HAL_TIM_PWM_Start(&htim3,TIM_CHANNEL_4);
   HAL_TIM_PWM_Start(&htim8,TIM_CHANNEL_1);
+  HAL_TIM_Base_Start_IT(&htim2);    //使能定时器2
   HAL_TIM_Encoder_Start(&htim8, TIM_CHANNEL_ALL);
   HAL_UART_Receive_IT(&huart1,Uart1_RxBuffer,1);
   HAL_UART_Receive_IT(&huart3,Uart3_RxBuffer,1);
@@ -158,9 +159,13 @@ int main(void)
   /* USER CODE BEGIN 3 */
 	  //HAL_UART_Transmit(&huart3, rec_buff, strlen((char *)rec_buff), 1000);
 	  
-	  HAL_Delay(10);
-	  HAL_GPIO_TogglePin(GPIOB, LD3_Pin|LD2_Pin);
-	  printf(" %d\n",angle_uart);
+	  //HAL_Delay(10);
+	  //HAL_GPIO_TogglePin(GPIOB, LD3_Pin|LD2_Pin);
+	  if(rec_flag3 == 1)
+	  {
+	  
+		  
+	  }
 	 // adc_value1 = Get_adc(0);
 	  
 	 // printf("ADC1_0: %d \n\r",adc_value1);
@@ -626,9 +631,9 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 		else
 		{
 			angle_uart += Uart1_RxBuffer[0];
-			
 			rec_flag1 = 0;
 			rec_flag2 = 0;
+			rec_flag3 = 1;
 		}		
 		
 		//HAL_UART_Transmit(&huart1,Uart1_RxBuffer,strlen((char *)Uart1_RxBuffer),1000);
@@ -648,30 +653,35 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   if(htim == &htim2)
 	{
-				{TIME++; if(TIME>=32000) TIME=0;}			//时间信息
+				//{TIME++; if(TIME>=32000) TIME=0;}			//时间信息
 				
-				encoder_cnt = (int16_t)(__HAL_TIM_GET_COUNTER(&htim8));//获取电机位置
-				angle_site = (float)encoder_cnt/390.0*360.0;	  
-				angle = (float)angle_uart/1024.0*360.0;//获取摆位置
+					encoder_cnt = (int16_t)(__HAL_TIM_GET_COUNTER(&htim8));//获取电机位置
+					if(encoder_cnt>=32767)
+					{encoder_cnt = -(65535-encoder_cnt);}
+					angle_site = (float)(encoder_cnt)/390.0*360.0;	  
+					if(rec_flag3 ==1 )
+					{angle = (float)(angle_uart)/690.0*360.0; 
+						printf("%d  %f  %d  %f\n",angle_uart,angle,encoder_cnt,angle_site);
+						rec_flag3 = 0;		}//获取摆位置
 				
-				if(angel_control_flag==1)
-				{
-					if(angle>800&&angle<1300)
-					{
-						
-							angle_pwmout = InvertCotrol(&PID_angle,angle);
-							angle_site_pwmout = MotorControl(&PID_angle_site,angle_site);
-							SetPWM((int32_t)(angle_pwmout+angle_site_pwmout));
-							
-					}
-				}
-				else 
-					{						
-							SetPWM(0);
-							angle_pwmout = 0;
-							angle_site_pwmout = 0;
-						
-					}
+//				if(angel_control_flag==1)
+//				{
+//					if(angle>800&&angle<1300)
+//					{
+//						
+//							angle_pwmout = InvertCotrol(&PID_angle,angle);
+//							angle_site_pwmout = MotorControl(&PID_angle_site,angle_site);
+//							SetPWM((int32_t)(angle_pwmout+angle_site_pwmout));
+//							
+//					}
+//				}
+//				else 
+//					{						
+//							SetPWM(0);
+//							angle_pwmout = 0;
+//							angle_site_pwmout = 0;
+//						
+//					}
 				
     
 	//	printf("hello\n");
